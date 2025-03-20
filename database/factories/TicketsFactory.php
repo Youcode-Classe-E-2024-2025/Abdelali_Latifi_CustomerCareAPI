@@ -20,9 +20,9 @@ class TicketsFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
             'subject' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'status' => $this->faker->randomElement(['open', 'in_progress', 'closed']),
+            'status' => $this->faker->randomElement(['open', 'in progress', 'closed']),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ];
     }
 }

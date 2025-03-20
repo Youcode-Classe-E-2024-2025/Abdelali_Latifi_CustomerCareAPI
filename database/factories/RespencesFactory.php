@@ -22,7 +22,7 @@ class RespencesFactory extends Factory
             'user_id' => User::where('role', 'agent')->inRandomOrder()->first()->id ?? User::factory(),
             'message' => $this->faker->text(200),
             'created_at' => now(),
-            'updated_at' => now(),
+            'updated_at' => now()
         ];
     }
 }

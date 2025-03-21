@@ -1,0 +1,580 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Authentification API",
+        "description": "Documentation de l'API d'authentification avec Laravel Sanctum",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost",
+            "description": "Serveur principal"
+        }
+    ],
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Inscription d'un nouvel utilisateur",
+                "operationId": "8a56853624e025573120a09a4c75d468",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "enum": [
+                                            "client",
+                                            "agent",
+                                            "admin"
+                                        ],
+                                        "example": "client"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créé avec succès"
+                    },
+                    "400": {
+                        "description": "Données invalides"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Connexion de l'utilisateur",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Connexion réussie"
+                    },
+                    "401": {
+                        "description": "Identifiants incorrects"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Déconnexion de l'utilisateur",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
+                "responses": {
+                    "200": {
+                        "description": "Déconnexion réussie"
+                    },
+                    "401": {
+                        "description": "Utilisateur non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Authentification"
+                ],
+                "summary": "Obtenir l'utilisateur authentifié",
+                "operationId": "31234491f21a35d2de09d4fae7ee13c4",
+                "responses": {
+                    "200": {
+                        "description": "Informations de l'utilisateur"
+                    },
+                    "401": {
+                        "description": "Utilisateur non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tickets/{ticketId}/responses": {
+            "get": {
+                "tags": [
+                    "Réponses"
+                ],
+                "summary": "Liste toutes les réponses d'un ticket",
+                "operationId": "4840d0ceee0f1b1c4635b3865b9b9662",
+                "parameters": [
+                    {
+                        "name": "ticketId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Liste des réponses"
+                    },
+                    "404": {
+                        "description": "Ticket non trouvé"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Réponses"
+                ],
+                "summary": "Créer une réponse pour un ticket",
+                "operationId": "c68e3f158328ce9422a390406eaeff52",
+                "parameters": [
+                    {
+                        "name": "ticketId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "message"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Merci pour votre patience, nous travaillons sur votre problème."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Réponse créée avec succès"
+                    },
+                    "400": {
+                        "description": "Données invalides"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Accès interdit"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/responses/{id}": {
+            "put": {
+                "tags": [
+                    "Réponses"
+                ],
+                "summary": "Mettre à jour une réponse",
+                "operationId": "1138fd632af9d18dd09c9f81ffec3e3f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "message"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Mise à jour de la réponse précédente."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Réponse mise à jour"
+                    },
+                    "404": {
+                        "description": "Réponse non trouvée"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Accès interdit"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Réponses"
+                ],
+                "summary": "Supprimer une réponse",
+                "operationId": "67c6e5721287d31ef9f15826c118609a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Réponse supprimée"
+                    },
+                    "404": {
+                        "description": "Réponse non trouvée"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Accès interdit"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tickets": {
+            "get": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Liste tous les tickets",
+                "operationId": "3701c3cbbd988b550569d40513deaf69",
+                "responses": {
+                    "200": {
+                        "description": "Liste des tickets"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Accès interdit"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Créer un nouveau ticket",
+                "operationId": "acaec5ac75c153a193474208c2c12ca3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "subject",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "subject": {
+                                        "type": "string",
+                                        "example": "Problème de connexion"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Je n'arrive pas à me connecter"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "open",
+                                            "in progress",
+                                            "closed"
+                                        ],
+                                        "example": "open"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ticket créé avec succès"
+                    },
+                    "400": {
+                        "description": "Données invalides"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Accès interdit"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tickets/{id}": {
+            "get": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Obtenir un ticket spécifique",
+                "operationId": "260b8ea9f323498af8fa7b50a690406d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Détails du ticket"
+                    },
+                    "404": {
+                        "description": "Ticket non trouvé"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Accès interdit"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Mettre à jour un ticket",
+                "operationId": "a16077470920a129e3a0f9b45d2f4b47",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "subject": {
+                                        "type": "string",
+                                        "example": "Mise à jour du problème"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Le problème persiste"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "open",
+                                            "in progress",
+                                            "closed"
+                                        ],
+                                        "example": "in progress"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ticket mis à jour"
+                    },
+                    "404": {
+                        "description": "Ticket non trouvé"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Accès interdit"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Supprimer un ticket",
+                "operationId": "804558abedd53ef9809b03b7d3c492c3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ticket supprimé"
+                    },
+                    "404": {
+                        "description": "Ticket non trouvé"
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Accès interdit"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Réponses",
+            "description": "Gestion des réponses aux tickets"
+        },
+        {
+            "name": "Tickets",
+            "description": "Gestion des tickets"
+        },
+        {
+            "name": "Authentification",
+            "description": "Authentification"
+        }
+    ]
+}

@@ -1,66 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Gestion des Tickets - Documentation du Projet
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 Introduction
+Ce projet est une **application de gestion des tickets** développée avec **Laravel** et utilisant **Sanctum** pour l'authentification. Il permet aux utilisateurs de créer, suivre et fermer des tickets.
 
-## About Laravel
+## 🏗️ Architecture du Projet
+L'architecture suit les **principes MVC** et intègre des **services** pour séparer la logique métier des controllers.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 📂 Structure des Dossiers Clés
+```
+app/
+│── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php
+│   │   ├── TicketsController.php
+│   │   ├── ResponseController.php
+│   ├── Requests/
+│   │   ├── TicketRequest.php
+│── Models/
+│   ├── Tickets.php
+│   ├── User.php
+│   ├── Responses.php
+│── Services/
+│   ├── TicketService.php
+│   ├── ResponseService.php
+│   ├── UserService.php
+│── Providers/
+│── Middleware/
+│── Policies/
+│── Exceptions/
+│── Resources/
+│── Rules/
+│── Console/
+│── Events/
+│── Listeners/
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📌 Fonctionnalités Principales
+✅ **Authentification via Laravel Sanctum**  
+✅ **CRUD des Tickets** (Création, lecture, mise à jour, suppression)  
+✅ **Séparation de la logique métier dans `TicketService`**  
+✅ **Validation centralisée via `StoreTicketRequest` et `UpdateTicketRequest`**  
+✅ **Gestion des rôles (`client`, `agent`, `admin`)**  
+✅ **Suppression en cascade des tickets lors de la suppression d'un utilisateur**  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🔧 Technologies Utilisées
+- **Laravel** (PHP Framework)
+- **Laravel Sanctum** (Authentification API)
+- **PostgreSQL** (Base de données)
 
-## Learning Laravel
+## 🚀 Installation et Configuration
+### 1️⃣ Cloner le projet
+```sh
+git clone https://github.com/Youcode-Classe-E-2024-2025/Abdelali_Latifi_CustomerCareAPI.git
+cd votre-repo
+```
+### 2️⃣ Installer les dépendances
+```sh
+composer install
+npm install
+```
+### 3️⃣ Configurer l'environnement
+Copiez `.env.example` et renommez-le en `.env`, puis modifiez les informations de la base de données.
+```sh
+cp .env.example .env
+```
+Générez la clé d'application :
+```sh
+php artisan key:generate
+```
+### 4️⃣ Exécuter les migrations
+```sh
+php artisan migrate --seed
+```
+### 5️⃣ Démarrer le serveur
+```sh
+php artisan serve
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ API Endpoints
+### 🔐 **Authentification**
+| Méthode | Endpoint           | Description         |
+|---------|------------------|--------------------|
+| POST    | /api/register    | Inscription        |
+| POST    | /api/login       | Connexion         |
+| POST    | /api/logout      | Déconnexion       |
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 🎟️ **Tickets**
+| Méthode | Endpoint          | Description              |
+|---------|-----------------|-------------------------|
+| GET     | /api/tickets    | Récupérer tous les tickets (admin) |
+| GET     | /api/my-tickets | Mes tickets (utilisateur connecté) |
+| POST    | /api/tickets    | Créer un ticket         |
+| PUT     | /api/tickets/{id} | Modifier un ticket      |
+| DELETE  | /api/tickets/{id} | Supprimer un ticket     |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📝 Contribution
+1. **Fork** le projet 📌
+2. Crée une nouvelle branche : `git checkout -b feature-nouvelle-fonctionnalite`
+3. Effectue les modifications et commit : `git commit -m "Ajout d'une nouvelle fonctionnalité"`
+4. Push la branche : `git push origin feature-nouvelle-fonctionnalite`
+5. Crée une **Pull Request** 🚀
 
-## Laravel Sponsors
+## 📜 Licence
+Ce projet est sous licence **MIT**.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

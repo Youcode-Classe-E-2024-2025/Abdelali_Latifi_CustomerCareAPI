@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\TicketService;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\TicketRequest;
 
@@ -41,7 +40,7 @@ class TicketsController extends Controller
 
     public function update(TicketRequest $request, $id): JsonResponse
     {
-        
+
         return response()->json($this->ticketService->updateTicket($id, $request->validated()));
     }
 

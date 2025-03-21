@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\RespensesController;
 
 
 /*
@@ -41,4 +42,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tickets/open', [TicketsController::class, 'openTickets']); 
     Route::get('/tickets/in-progress', [TicketsController::class, 'inProgressTickets']); 
     Route::get('/tickets/closed', [TicketsController::class, 'closedTickets']); 
+
+    Route::get('/tickets/{ticketId}/respenses', [RespensesController::class, 'index']);
+    Route::post('/tickets/{ticketId}/respenses', [RespensesController::class, 'store']);
+    Route::put('/respenses/{id}', [RespensesController::class, 'update']);
+    Route::delete('/respenses/{id}', [RespensesController::class, 'destroy']);
+
 });

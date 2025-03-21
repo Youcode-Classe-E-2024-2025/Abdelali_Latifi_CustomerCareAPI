@@ -56,4 +56,34 @@ class TicketsController extends Controller
     {
         return response()->json($this->ticketService->deleteTicket($id));
     }
+
+    // change status ticket to 'in progress'
+    public function start($id): JsonResponse
+    {
+        return response()->json($this->ticketService->updateTicket($id, ['status' => 'in progress']));
+    }
+
+    // close ticket (changer son statut à 'closed')
+    public function close($id): JsonResponse
+    {
+        return response()->json($this->ticketService->updateTicket($id, ['status' => 'closed']));
+    }
+
+    // diplay tickets (filtr par statut)
+    public function openTickets(): JsonResponse
+    {
+        return response()->json($this->ticketService->getTicketsByStatus('open'));
+    }
+
+    // Voir les tickets en cours (filtrer par statut)
+    public function inProgressTickets(): JsonResponse
+    {
+        return response()->json($this->ticketService->getTicketsByStatus('in progress'));
+    }
+
+    // Voir les tickets fermés (filtrer par statut)
+    public function closedTickets(): JsonResponse
+    {
+        return response()->json($this->ticketService->getTicketsByStatus('closed'));
+    }
 }

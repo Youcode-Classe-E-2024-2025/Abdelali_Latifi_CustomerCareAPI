@@ -2,64 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Respenses;
+use App\Services\ResponseService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class RespensesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $responseService;
+
+    public function __construct(ResponseService $responseService){
+
+        $this->responseService = $responseService;
+    }
+    public function index($ticketId): JsonResponse
     {
-        //
+        return response()->json($this->responseService->getResponsesByTicketId($ticketId));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request, $ticketId): JsonResponse
     {
-        //
+        $validated = $request->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+
+        return response()->json($this->responseService->createResponse($ticketId, $validated), 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request, $id): JsonResponse
     {
-        //
+        $validated = $request->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+
+        return response()->json($this->responseService->updateResponse($id, $validated));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Respenses $respenses)
+    public function destroy($id): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Respenses $respenses)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Respenses $respenses)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Respenses $respenses)
-    {
-        //
+        return response()->json($this->responseService->deleteResponse($id));
     }
 }

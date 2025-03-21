@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Services\TicketService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\TicketRequest;
+
+
 
 class TicketsController extends Controller
 {
@@ -30,26 +33,16 @@ class TicketsController extends Controller
         return response()->json($this->ticketService->getTicketById($id));
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(TicketRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'subject' => 'required|string|max:255',
-            'description' => 'required|string',
-            'status' => 'sometimes|in:open,in progress,closed',
-        ]);
 
-        return response()->json($this->ticketService->createTicket($validated), 201);
+        return response()->json($this->ticketService->createTicket($request->validated()), 201);
     }
 
-    public function update(Request $request, $id): JsonResponse
+    public function update(TicketRequest $request, $id): JsonResponse
     {
-        $validated = $request->validate([
-            'subject' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string',
-            'status' => 'sometimes|in:open,in progress,closed',
-        ]);
-
-        return response()->json($this->ticketService->updateTicket($id, $validated));
+        
+        return response()->json($this->ticketService->updateTicket($id, $request->validated()));
     }
 
     public function destroy($id): JsonResponse

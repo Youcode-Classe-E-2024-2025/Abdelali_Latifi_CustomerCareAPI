@@ -25,23 +25,23 @@ class AuthService
 
     public function login(array $credentials)
     {
-        $user = User::where('email', $credentials['email'])->first();
+       $user = User::where('email', $credentials['email']);
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['Les informations d’identification sont incorrectes.'],
-            ]);
-        }
+       if(!$user || !Hash::check('password', $credentials['password'])){
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        throw ValidationException::withMessages([
+            'email' => ['incorrects informations .']
+        ]);
+       }
+       $token = $user->createToken('auth_token')->plainTextToken;
 
-        return ['user' => $user, 'token' => $token];
+       return ['user' => $user, 'token' => $token];
     }
 
     public function logout()
     {
-        Auth::user()->tokens()->delete();
-        return ['message' => 'Déconnexion réussie'];
+       Auth::user()->token()->delete();
+       return ['massage', 'disconnected'];
     }
 
     public function getUser()

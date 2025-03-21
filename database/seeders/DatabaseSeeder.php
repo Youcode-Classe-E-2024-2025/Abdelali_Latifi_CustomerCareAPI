@@ -6,7 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Tickets;
-use App\Models\Respences;
+use App\Models\Respenses;
 
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
        User::factory(10)->create();
        Tickets::factory(30)->create();
-       Respences::factory(50)->create();
+       Respenses::factory(50)->create();
 
     }
 }

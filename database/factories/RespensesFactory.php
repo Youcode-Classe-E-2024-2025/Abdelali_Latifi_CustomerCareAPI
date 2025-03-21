@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use App\Models\Tickets;
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Respences>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Respenses>
  */
 class RespensesFactory extends Factory
 {

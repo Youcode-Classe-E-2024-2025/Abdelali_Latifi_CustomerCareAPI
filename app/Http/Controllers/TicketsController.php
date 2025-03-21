@@ -2,64 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tickets;
+use App\Services\TicketService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class TicketsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $ticketService;
+
+    public function __construct(TicketService $ticketService)
     {
-        //
+        $this->ticketService = $ticketService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function index(): JsonResponse
     {
-        //
+        return response()->json($this->ticketService->getAllTickets());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function userTickets(): JsonResponse
     {
-        //
+        return response()->json($this->ticketService->getUserTickets());
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tickets $tickets)
+    public function show($id): JsonResponse
     {
-        //
+        return response()->json($this->ticketService->getTicketById($id));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tickets $tickets)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $validated = $request->validate([
+            'subject' => 'required|string|max:255',
+            'description' => 'required|string',
+            'status' => 'sometimes|in:open,in progress,closed',
+        ]);
+
+        return response()->json($this->ticketService->createTicket($validated), 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tickets $tickets)
+    public function update(Request $request, $id): JsonResponse
     {
-        //
+        $validated = $request->validate([
+            'subject' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
+            'status' => 'sometimes|in:open,in progress,closed',
+        ]);
+
+        return response()->json($this->ticketService->updateTicket($id, $validated));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tickets $tickets)
+    public function destroy($id): JsonResponse
     {
-        //
+        return response()->json($this->ticketService->deleteTicket($id));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\RegisterRequest;
 
 /**
  * @OA\Info(
@@ -46,16 +47,9 @@ class AuthController extends Controller
      *     @OA\Response(response=400, description="Données invalides"),
      * )
      */
-    public function register(Request $request): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'role' => 'sometimes|in:client,agent,admin',
-        ]);
-
-        return response()->json($this->authService->register($validated), 201);
+        return response()->json($this->authService->register($request->validated()), 201);
     }
 
     /**

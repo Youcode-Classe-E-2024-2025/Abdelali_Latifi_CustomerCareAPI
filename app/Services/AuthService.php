@@ -40,8 +40,8 @@ class AuthService
 
     public function logout()
     {
-       Auth::user()->token()->delete();
-       return ['massage', 'disconnected'];
+       Auth::user()->tokens()->delete();   
+       return ['message' => 'Logged out'];
     }
 
     public function getUser()

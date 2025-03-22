@@ -16,6 +16,7 @@ app/
 │   │   ├── ResponseController.php
 │   ├── Requests/
 │   │   ├── TicketRequest.php
+│   │   ├── RegisterRequest.php
 │── Models/
 │   ├── Tickets.php
 │   ├── User.php

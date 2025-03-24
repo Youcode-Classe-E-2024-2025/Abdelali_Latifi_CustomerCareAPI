@@ -67,6 +67,7 @@ class TicketService
     {
         $ticket = Tickets::findOrFail($id);
 
+        // Vérifie si l'utilisateur est le propriétaire du ticket ou un admin
         if ($ticket->user_id !== Auth::id() && Auth::user()->role !== 'admin') {
             abort(403, 'Vous n\'êtes pas autorisé à supprimer ce ticket.');
         }

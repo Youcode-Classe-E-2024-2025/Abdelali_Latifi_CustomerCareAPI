@@ -19,9 +19,9 @@ class TicketService
      * Récupérer les tickets de l'utilisateur connecté
      */
     public function getUserTickets()
-    {
-        return Tickets::where('user_id', Auth::id())->get();
-    }
+{
+    return Tickets::where('user_id', Auth::id())->get();
+}
 
     /**
      * Récupérer un ticket par son ID

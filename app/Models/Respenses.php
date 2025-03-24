@@ -19,4 +19,9 @@ class Respenses extends Model
 
         return $this->belongsTo(Tickets::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

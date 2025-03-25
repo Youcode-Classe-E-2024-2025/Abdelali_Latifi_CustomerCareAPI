@@ -94,12 +94,6 @@ php artisan serve
 | PUT     | /api/tickets/{id} | Modifier un ticket      |
 | DELETE  | /api/tickets/{id} | Supprimer un ticket     |
 
-## 📝 Contribution
-1. **Fork** le projet 📌
-2. Crée une nouvelle branche : `git checkout -b feature-nouvelle-fonctionnalite`
-3. Effectue les modifications et commit : `git commit -m "Ajout d'une nouvelle fonctionnalité"`
-4. Push la branche : `git push origin feature-nouvelle-fonctionnalite`
-5. Crée une **Pull Request** 🚀
 
 ## 📜 Licence
 Ce projet est sous licence **MIT**.

@@ -22,8 +22,8 @@ class ResponseServiceTest extends TestCase
         parent::setUp();
         $this->service = new ResponseService();
         $this->user = User::factory()->create();
-        $this->ticket = Tickets::factory()->create(); // Création d'un ticket pour éviter l'erreur de clé étrangère
-    }
+        $this->ticket = Tickets::factory()->create(); 
+       }
 
     public function test_get_responses_by_ticket_id()
     {

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { getUser, login, logout, register } from "../services/authService";
+import { getUser, login, logout, register } from "../services/AuthService";
 
 export const AuthContext = createContext();
 
@@ -44,5 +44,4 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
 

@@ -21,9 +21,15 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const handleLogin = async (credentials) => {
-    const response = await login(credentials);
-    localStorage.setItem("token", response.data.token);
-    setUser(response.data.user);
+    try {
+      const response = await login(credentials);
+      console.log("Réponse de l'API:", response); 
+      localStorage.setItem("token", response.data.token);
+      setUser(response.data.user);
+    } catch (error) {
+      console.error("Erreur de connexion:", error);
+      throw error;
+    }
   };
 
   const handleRegister = async (userData) => {
@@ -44,4 +50,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
